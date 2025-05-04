@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animated Box</title>
+
+    <style>
+        /* Styling for the animated box */
+        .animated-box {
+            width: 100px; /* Sets the width of the box */
+            height: 100px; /* Sets the height of the box */
+            background-color: #9b59b6; /* Initial background color (purple) */
+            transition: transform 0.3s ease; /* Smooth transition for rotation */
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hover effect */
+        .animated-box:hover {
+            animation: color-change 1s ease infinite; /* Starts color-changing animation */
+            transform: rotate(20deg); /* Rotates the box 20 degrees */
+        }
+
+        /* Keyframe animation to change colors */
+        @keyframes color-change {
+            0% { background-color: #9b59b6; } /* Start color (purple) */
+            50% { background-color: #2ecc71; } /* Middle color (green) */
+            100% { background-color: #9b59b6; } /* End color (back to purple) */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The box that will animate -->
+    <div class="animated-box" id="box"></div>
+
+    <!-- Buttons to save and load the box color using localStorage -->
+    <button onclick="saveColor()">Save Color</button>
+    <button onclick="loadColor()">Load Color</button>
+
+    <script>
+        /**
+         * Function to store the current background color in localStorage.
+         */
+        function saveColor() {
+            let box = document.getElementById("box"); // Get the box element
+            let computedStyle = window.getComputedStyle(box); // Get its current styles
+            localStorage.setItem("boxColor", computedStyle.backgroundColor); // Save color in localStorage
+            alert("Color saved!"); // Notify the user
+        }
+
+        /**
+         * Function to retrieve the saved color from localStorage and apply it to the box.
+         */
+        function loadColor() {
+            let savedColor = localStorage.getItem("boxColor"); // Get saved color
+            if (savedColor) {
+                document.getElementById("box").style.backgroundColor = savedColor; // Apply saved color
+            } else {
+                alert("No color saved!"); // Notify the user if no saved color exists
+            }
+        }
+    </script>
+
+</body>
+</html>
